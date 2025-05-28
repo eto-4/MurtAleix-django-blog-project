@@ -8,9 +8,9 @@ L’usuari pot veure els posts publicats, filtrar per etiquetes o autors, i acce
 
 ---
 
-## Instal·lació ràpida
+# Instal·lació ràpida
 
-### 1. Clonar el repositori
+## 1. Clonar el repositori
 
 
 ```bash
@@ -40,14 +40,20 @@ python manage.py runserver
 ```
 
 ## 2. Accedir a l’aplicació
-# Obre el navegador i visita:
-# http://127.0.0.1:8000/
+### Obre el navegador i visita:
+### http://127.0.0.1:8000/
 
 ---
 
 # Altres detalls útils
 
 ## Panell d'administració:
-# http://127.0.0.1:8000/admin/
-# Usuari: Aleix
-# Contrasenya: Admin
+### http://127.0.0.1:8000/admin/
+### Usuari: Aleix
+### Contrasenya: Admin
+
+---
+
+# Pàgina amb pydoc de Blog
+## Consulta la documentació generada automàticament amb Pydoc a través de GitHub Pages:
+[Veure documentació online](https://eto-4.github.io/MurtAleix-django-blog-project/)
