@@ -23,6 +23,7 @@ jobs:
       
     - name: Generar documentació HTML de submòduls
       run: |
+        export DJANGO_SETTINGS_MODULE=my_site.settings
         mkdir -p docs
         python -m pydoc -w blog
         mv blog.html docs/index.html
