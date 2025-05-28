@@ -51,3 +51,9 @@ python manage.py runserver
 ### http://127.0.0.1:8000/admin/
 ### Usuari: Aleix
 ### Contrasenya: Admin
+
+---
+
+# Pàgina amb pydoc de Blog
+## Consulta la documentació generada automàticament amb Pydoc a través de GitHub Pages:
+[Veure documentació online](https://eto-4.github.io/MurtAleix-django-blog-project/)
