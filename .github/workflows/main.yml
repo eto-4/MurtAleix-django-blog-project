@@ -29,5 +29,5 @@ jobs:
         git config --global user.name 'github-actions'
         git config --global user.email 'github-actions@github.com'
         git add docs/
-        git commit -m "🔧 Actualitzar documentació amb Pydoc" || echo "No hi ha canvis"
+        git commit -m "Actualitzar documentació amb Pydoc" || echo "No hi ha canvis"
         git push
