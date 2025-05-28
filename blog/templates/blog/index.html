@@ -1,0 +1,48 @@
+{% extends 'blog/base.html' %}
+{% block title %}Inici{% endblock %}
+
+{% block content %}
+<div class="text-center mb-5">
+    <h1 class="display-4">Projecte Blog</h1>
+    <p class="lead">
+        Benvingut al meu projecte personal desenvolupat amb Django. Aquest blog serveix com a pràctica per aprendre sobre el desenvolupament web amb Python, 
+        la gestió de dades i la creació d’interfícies amigables amb HTML, CSS i Bootstrap.
+    </p>
+</div>
+
+<div class="mb-5">
+    <h2>Objectius del projecte</h2>
+    <p class="text-estilitzat">
+        Aquest projecte té com a finalitat explorar el funcionament intern d’un blog, des de la seva estructura fins a la manera com es mostren les dades. 
+        A més, busca aplicar coneixements reals de backend i frontend, així com millorar la comprensió del treball amb bases de dades, models i formularis.
+    </p>
+</div>
+
+<div class="mb-5">
+    <h2>Tecnologies utilitzades</h2>
+    <ul>
+        <li><strong>Django</strong> — per a la creació del backend i gestió del servidor.</li>
+        <li><strong>HTML & CSS</strong> — per estructurar i donar estil a les pàgines.</li>
+        <li><strong>Bootstrap</strong> — per a una estètica responsiva i ràpida.</li>
+        <li><strong>SQLite</strong> — com a base de dades per guardar posts, autors i etiquetes.</li>
+    </ul>
+</div>
+
+<h3 class="mt-5 mb-3">Posts més recents</h3>
+<div class="row">
+    {% for post in posts %}
+    <div class="col-md-4">
+        <div class="card mb-4">
+            {% if post.image %}
+            <img src="{{ post.image.url }}" class="card-img-top post-image" alt="{{ post.title }}">
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{ post.title }}</h5>
+                <p class="card-text">{{ post.excerpt }}</p>
+                <a href="{% url 'posts-detail-page' post.slug %}" class="btn btn-primary">Llegir més</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

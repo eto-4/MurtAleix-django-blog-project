@@ -1,0 +1,31 @@
+{% extends 'blog/base.html' %}
+{% block title %}{{ post.title }}{% endblock %}
+{% block content %}
+<div class="container my-5">
+    <article class="post-detail p-4 shadow-sm rounded bg-white">
+        <h1 class="post-title mb-3">{{ post.title }}</h1>
+
+        {% if post.image %}
+            <img src="{{ post.image.url }}" alt="{{ post.title }}" class="post-detail-image mb-4">
+        {% endif %}
+
+        <div class="post-meta mb-3">
+            <span><strong>Autor:</strong> {{ post.author.full_name }}</span> |
+            <span><strong>Data:</strong> {{ post.date }}</span>
+        </div>
+
+        <div class="post-content mb-4">
+            {{ post.content|linebreaks }}
+        </div>
+
+        {% if post.tags.all %}
+            <div class="post-tags">
+                <strong>Etiquetes:</strong>
+                {% for tag in post.tags.all %}
+                    <a href="{% url 'tag-posts' tag.name %}" class="tag">{{ tag.name }}</a>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </article>
+</div>
+{% endblock %}

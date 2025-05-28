@@ -1,0 +1,11 @@
+{% extends 'blog/base.html' %}
+{% block title %}Pàgina no trobada (404){% endblock %}
+
+{% block content %}
+<div class="d-flex flex-column align-items-center justify-content-center" style="height: 70vh; text-align: center;">
+    <h1 class="display-1 text-danger mb-4">404</h1>
+    <h2 class="mb-3">Ups! Pàgina no trobada</h2>
+    <p class="mb-4 text-muted fs-5">La pàgina que cerques no existeix o ha estat moguda.</p>
+    <a href="{% url 'home' %}" class="btn btn-primary btn-lg">Torna a l'inici</a>
+</div>
+{% endblock %}

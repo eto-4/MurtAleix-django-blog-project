@@ -1,0 +1,33 @@
+{% extends 'blog/base.html' %}
+{% block title %}Tots els Posts{% endblock %}
+{% block content %}
+<div class="container my-5">
+    <h1 class="text-center mb-4">Tots els Posts</h1>
+    {% for post in posts %}
+    <div class="post-container post-box shadow-sm">
+        <div class="post-image-container">
+            {% if post.image %}
+                <img src="{{ post.image.url }}" alt="{{ post.title }}" class="post-image">
+            {% else %}
+                <div class="no-image">Sense imatge</div>
+            {% endif %}
+        </div>
+
+        <div class="post-content">
+            <div class="post-text">
+                <h2 class="post-title">
+                    <a href="{% url 'posts-detail-page' post.slug %}">{{ post.title }}</a>
+                </h2>
+                <p class="post-excerpt">{{ post.excerpt }}</p>
+            </div>
+
+            <div class="post-tags">
+                {% for tag in post.tags.all %}
+                    <span class="tag">{{ tag.name }}</span>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

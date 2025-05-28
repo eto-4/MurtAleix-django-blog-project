@@ -1,0 +1,19 @@
+{% extends 'blog/base.html' %}
+{% block title %}Etiquetes{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="text-center mb-4">Etiquetes del Blog</h1>
+    <p class="text-center text-muted">Explora les diferents categories i temes tractats en el nostre blog. Fes clic en qualsevol etiqueta per veure les publicacions relacionades.</p>
+    
+    <div class="d-flex flex-wrap justify-content-center mt-4">
+        {% for tag in tags %}
+            <a href="{% url 'tag-posts' tag.name %}" class="badge rounded-pill bg-primary text-white m-2 px-3 py-2 text-decoration-none">
+                {{ tag.name }}
+            </a>
+        {% empty %}
+            <p class="text-muted">Encara no hi ha cap etiqueta disponible.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
