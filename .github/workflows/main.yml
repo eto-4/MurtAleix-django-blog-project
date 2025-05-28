@@ -1,0 +1,33 @@
+name: Generar documentació amb Pydoc
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build-docs:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Clonar el repositori
+      uses: actions/checkout@v3
+
+    - name: Instal·lar Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Generar documentació HTML
+      run: |
+        mkdir -p docs
+        python -m pydoc -w blog
+        mv blog.html docs/index.html
+
+    - name: Fer commit i pujar la documentació
+      run: |
+        git config --global user.name 'github-actions'
+        git config --global user.email 'github-actions@github.com'
+        git add docs/
+        git commit -m "Actualitzar documentació amb Pydoc" || echo "No hi ha canvis"
+        git push
