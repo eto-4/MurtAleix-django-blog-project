@@ -18,11 +18,16 @@ jobs:
       with:
         python-version: '3.10'
 
-    - name: Generar documentació HTML
+    - name: Generar documentació HTML de submòduls
       run: |
         mkdir -p docs
         python -m pydoc -w blog
         mv blog.html docs/index.html
+        for f in blog/*.py; do
+          module=$(basename "$f" .py)
+          python -m pydoc -w blog.$module
+          mv blog.$module.html docs/$module.html
+        done
 
     - name: Fer commit i pujar la documentació
       run: |
