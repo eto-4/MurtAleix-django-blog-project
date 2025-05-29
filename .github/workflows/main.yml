@@ -17,21 +17,30 @@ jobs:
       uses: actions/setup-python@v4
       with:
         python-version: '3.10'
-        
-    - name: instal·lar dependencies
+
+    - name: Instal·lar dependències
       run: pip install -r requirements.txt
-      
-    - name: Generar documentació HTML de submòduls
+
+    - name: Generar documentació HTML amb pydoc
       run: |
         export DJANGO_SETTINGS_MODULE=my_site.settings
         mkdir -p docs
-        python -m pydoc -w blog
-        mv blog.html docs/index.html
-        for f in blog/*.py; do
-          module=$(basename "$f" .py)
-          python -m pydoc -w blog.$module
-          mv blog.$module.html docs/$module.html
+        echo "<html><head><meta charset='UTF-8'><title>Documentació</title></head><body><h1>Documentació dels mòduls</h1><ul>" > docs/index.html
+
+        # Carpetes on buscar fitxers .py rellevants
+        for folder in blog my_site; do
+          for f in $(find $folder -maxdepth 1 -name "*.py" ! -name "__init__.py"); do
+            module_path=${f%.py}             # blog/models
+            module_path=${module_path//\//.} # blog.models
+            module_name=$(basename "$f" .py) # models
+
+            python -m pydoc -w "$module_path"
+            mv "$module_path".html docs/
+            echo "<li><a href=\"$module_name.html\">$module_path</a></li>" >> docs/index.html
+          done
         done
+
+        echo "</ul></body></html>" >> docs/index.html
 
     - name: Fer commit i pujar la documentació
       run: |
