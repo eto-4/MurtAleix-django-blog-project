@@ -1,3 +1,10 @@
+"""
+Definició de les rutes URL per a l'aplicació de blog.
+
+Aquest mòdul assigna les rutes del projecte a les vistes corresponents definides al fitxer views.py.
+Inclou rutes per llista de posts, detall de posts, autors i etiquetes.
+"""
+
 from django.urls import path
 from . import views
 
