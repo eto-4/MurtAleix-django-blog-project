@@ -21,26 +21,28 @@ jobs:
     - name: Instal·lar dependències
       run: pip install -r requirements.txt
 
-    - name: Generar documentació HTML amb pydoc
+    - name: Exportar settings de Django
+      run: echo "DJANGO_SETTINGS_MODULE=my_site.settings" >> $GITHUB_ENV
+
+    - name: Generar documentació amb pydoc
       run: |
-        export DJANGO_SETTINGS_MODULE=my_site.settings
         mkdir -p docs
-        echo "<html><head><meta charset='UTF-8'><title>Documentació</title></head><body><h1>Documentació dels mòduls</h1><ul>" > docs/index.html
 
-        # Carpetes on buscar fitxers .py rellevants
-        for folder in blog my_site; do
-          for f in $(find $folder -maxdepth 1 -name "*.py" ! -name "__init__.py"); do
-            module_path=${f%.py}             # blog/models
-            module_path=${module_path//\//.} # blog.models
-            module_name=$(basename "$f" .py) # models
-
-            python -m pydoc -w "$module_path"
-            mv "$module_path".html docs/
-            echo "<li><a href=\"$module_name.html\">$module_path</a></li>" >> docs/index.html
-          done
+        FILES="manage blog/__init__.py blog/admin.py blog/apps.py blog/models.py blog/tests.py blog/urls.py blog/views.py my_site/__init__.py my_site/settings.py my_site/urls.py my_site/wsgi.py my_site/asgi.py"
+        
+        for f in $FILES; do
+          MODULE=${f//\//.}
+          MODULE=${MODULE%.py}
+          python -m pydoc -w $MODULE || echo "Error amb $MODULE, potser no té docstrings o dona error"
         done
 
-        echo "</ul></body></html>" >> docs/index.html
+        mv *.html docs/
+
+        echo "<h1>Documentació del projecte</h1><ul>" > docs/index.html
+        for f in docs/*.html; do
+          [ "$f" != "docs/index.html" ] && echo "<li><a href='$(basename $f)'>$(basename $f)</a></li>" >> docs/index.html
+        done
+        echo "</ul>" >> docs/index.html
 
     - name: Fer commit i pujar la documentació
       run: |
